@@ -1,32 +1,33 @@
-# Compiler settings
-CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -Iinclude
+# Define the compiler
+CC = g++
 
-# Folders
-SRC_DIR = src
-BUILD_DIR = build
-BIN_DIR = $(BUILD_DIR)/bin
+# Define the compiler flags
+CFLAGS = -Iinclude -Wall
 
-# Files
-TARGET = ftl_simulator
-SOURCES = $(shell find $(SRC_DIR) -name '*.cpp')
-OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
+# Define the source files and objects
+SRCS = src/ftl/address_translation.cc src/ftl/flash_translation.cc src/ftl/garbage_collection.cc src/ftl/nand_controller.cc main.cc
+OBJS = $(addprefix build/, $(notdir $(SRCS:.cc=.o)))
 
-# Rules
-all: $(BIN_DIR)/$(TARGET)
+# Define the executable
+TARGET = build/ftl
 
-$(BIN_DIR)/$(TARGET): $(OBJECTS)
-	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+# Rule for building the executable
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
-	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+# Rule for building the objects
+build/%.o: src/ftl/%.cc
+	$(CC) $(CFLAGS) -c $< -o $@
 
+build/main.o: main.cc
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Rule for cleaning the build directory
 .PHONY: clean
 clean:
-	rm -rf $(BUILD_DIR)
+	rm -rf build/*
 
-.PHONY: run
-run: all
-	./$(BIN_DIR)/$(TARGET)
+# Rule for creating the build directory
+.PHONY: prep
+prep:
+	mkdir -p build
