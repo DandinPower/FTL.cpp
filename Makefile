@@ -1,33 +1,29 @@
-# Define the compiler
-CC = g++
+CC := gcc
+CFLAGS := -Wall -Wextra -Iinclude
+SRCDIR := src
+INCDIR := include
+BUILDDIR := build
 
-# Define the compiler flags
-CFLAGS = -Iinclude -Wall
+# List all the source files
+SOURCES := $(wildcard $(SRCDIR)/*.c)
+# Generate a list of object files by replacing .c with .o
+OBJECTS := $(patsubst $(SRCDIR)/%.c, $(BUILDDIR)/%.o, $(SOURCES))
 
-# Define the source files and objects
-SRCS = src/ftl/address_translation.cc src/ftl/flash_translation.cc src/ftl/garbage_collection.cc src/ftl/nand_controller.cc main.cc
-OBJS = $(addprefix build/, $(notdir $(SRCS:.cc=.o)))
+# Main target
+$(BUILDDIR)/ftl_simulator: $(OBJECTS) $(BUILDDIR)/main.o
+	$(CC) $(CFLAGS) $^ -o $@
 
-# Define the executable
-TARGET = build/ftl
-
-# Rule for building the executable
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
-
-# Rule for building the objects
-build/%.o: src/ftl/%.cc
+# Compile the source files
+$(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-build/main.o: main.cc
+# Compile the main file
+$(BUILDDIR)/main.o: main.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Rule for cleaning the build directory
-.PHONY: clean
+# Remove object files and the executable
 clean:
-	rm -rf build/*
+	rm -f $(BUILDDIR)/*.o 
 
-# Rule for creating the build directory
-.PHONY: prep
-prep:
-	mkdir -p build
+# Define phony targets
+.PHONY: clean
