@@ -1,4 +1,4 @@
-CC := gcc
+CC := gcc 
 CFLAGS := -Wall -Wextra -Iinclude
 SRCDIR := src
 INCDIR := include
@@ -11,7 +11,7 @@ OBJECTS := $(patsubst $(SRCDIR)/%.c, $(BUILDDIR)/%.o, $(SOURCES))
 
 # Main target
 $(BUILDDIR)/ftl_simulator: $(OBJECTS) $(BUILDDIR)/main.o
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ 
 
 # Compile the source files
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c

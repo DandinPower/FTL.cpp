@@ -9,10 +9,7 @@ Page GetNewPage(int address, void *parentBlock)
     newPage.address = address;
     newPage.parentBlock = parentBlock;
     newPage.lbaNums = 0;
-    for (int i = 0; i < LBA_IN_PAGE_NUM; i++)
-    {
-        newPage.storeLbas[i] = -1; // -1 代表是空的
-    }
+    memset(newPage.storeLbas, -1, sizeof(int) * LBA_IN_PAGE_NUM);
     return newPage;
 }
 
