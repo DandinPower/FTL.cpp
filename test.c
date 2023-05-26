@@ -21,6 +21,31 @@ void testProgramBlock() {
     ShowBlockContent(block);
 }
 
+void testNandController() {
+    NandController nandController = GetNewNandController();
+    
+    // Test filling up a block with pages
+    printf("Filling up a block with pages:\n");
+    for (int i = 0; i < 10; i++) {
+        int lbas[] = {i + 1};
+        int lbaNums = sizeof(lbas) / sizeof(lbas[0]);
+        int pageAddress = Program(&nandController, lbas, lbaNums, HOT);
+        printf("Programmed page address: %d\n", pageAddress);
+    }
+    ShowNandControllerContent(nandController);
+    
+    // Test block overflow
+    printf("Block overflow:\n");
+    int lbas[] = {11};
+    int lbaNums = sizeof(lbas) / sizeof(lbas[0]);
+    int pageAddress = Program(&nandController, lbas, lbaNums, HOT);
+    printf("Programmed page address: %d\n", pageAddress);
+    ShowNandControllerContent(nandController);
+    
+    // Test FreeNandController
+    FreeNandController(&nandController);
+}
+
 int main() {
     // Test ProgramBlock function
     printf("ProgramBlock Test:\n");

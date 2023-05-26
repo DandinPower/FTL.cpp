@@ -1,11 +1,7 @@
 #include <stdio.h>
-#include <nand_controller.h>
-#include <block.h>
-#include <page.h>
+#include "nand_controller.h"
 
 int main() {
-    NandController nandController = GetNewNandController();
-    ShowNandControllerContent(nandController);
-    FreeNandController(&nandController);
+    // testNandController();
     return 0;
 }

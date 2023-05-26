@@ -1,6 +1,7 @@
 #include <page.h>
 #include <block.h>
 #include <stdio.h>
+#include <string.h>
 
 Page GetNewPage(int address, void *parentBlock)
 {

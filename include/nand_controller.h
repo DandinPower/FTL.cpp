@@ -3,16 +3,15 @@
 #include <block.h>
 
 typedef struct {
-    int currentHotBlockIndex;   // 紀錄目前的hot block index
-    int currentColdBlockIndex;  // 紀錄目前的cold block index
-    int freeBlockIndexesNums;   // 紀錄數量
-    int freeBlockIndexes[BLOCK_NUM];    // 存放freeblock的index
+    int currentHotBlockIndex;   // 紀錄目前的hot block index, -1代表需要時去找一個新的
+    int currentColdBlockIndex;  // 紀錄目前的cold block index, -1代表需要時去找一個新的
+    int blockStatus[BLOCK_NUM];    // 0代表free, 1代表被佔用了
     Block* blocks;    // 存放block array pointer
 } NandController;
 
 NandController GetNewNandController();  // 回傳一個新的物件
 
-int GetFreeBlockIndex(NandController* nandController, BlockType_t type); // 找出特定type的free block
+int GetWriteBlockIndex(NandController* nandController, BlockType_t type); // 找出特定type的free block
 
 int Program(NandController* nandController, int lbas[], int lbaNums, BlockType_t type); // 寫入新的request, 回傳寫入的page address
 
