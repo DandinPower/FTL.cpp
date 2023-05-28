@@ -1,5 +1,7 @@
 #include <address_translation.h>
 
-typedef struct {
-    
-} AddressTranslation;
+AddressTranslation GetNewAddressTranslation() {
+    AddressTranslation newAddressTranslation;
+    newAddressTranslation.table = GetNewLPTable();
+    return newAddressTranslation;
+}
