@@ -25,6 +25,8 @@ int ProgramBlock(Block *block, int lbas[], int lbaNums, BlockType_t type); // �
 
 bool IsBlockFull(Block block); // 檢查block是否滿了
 
+bool IsBlockGCLevelReached(Block block);    //檢查block是否達到GC的level
+
 void EraseBlock(Block *block); // erase掉block
 
 void ShowBlockContent(Block block); // 印出block的資訊

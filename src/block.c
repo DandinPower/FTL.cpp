@@ -40,6 +40,10 @@ bool IsBlockFull(Block block)
     return block.currentPageIndex == PAGE_IN_BLOCK_NUM;
 }
 
+bool IsBlockGCLevelReached(Block block) {
+    return (block.invalidPage / PAGE_IN_BLOCK_NUM) >= BLOCK_GC_LEVEL;
+}
+
 void EraseBlock(Block *block)
 {
     block->invalidPage = 0;

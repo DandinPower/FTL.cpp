@@ -6,6 +6,7 @@
 NandController GetNewNandController() {
     NandController newController;
     memset(newController.blockStatus, 0, sizeof(int) * BLOCK_NUM);
+    memset(newController.blockGCLevelStatus, 0, sizeof(int) * BLOCK_NUM);
     newController.currentHotBlockIndex = -1;    // 代表目前沒紀錄
     newController.currentColdBlockIndex = -1;   // 代表目前沒紀錄
     newController.blocks = malloc(sizeof(Block) * BLOCK_NUM);
@@ -56,6 +57,12 @@ int Program(NandController* nandController, int lbas[], int lbaNums, BlockType_t
         else printf("Unknown block type\n");
     }
     return programPageAddress;
+}
+
+void Erase(NandController* nandController, int blockIndex) {
+    if (!nandController->blockStatus[blockIndex]) printf("Erase on free block");
+    nandController->blockStatus[blockIndex] = 0;
+    EraseBlock(&nandController->blocks[blockIndex]);
 }
 
 void ShowNandControllerContent(NandController nandController)
