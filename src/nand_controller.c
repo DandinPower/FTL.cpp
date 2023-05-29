@@ -74,8 +74,11 @@ void ShowNandControllerContent(NandController nandController)
 }
 
 void FreeNandController(NandController* nandController) {
-    for (int i = 0; i < BLOCK_NUM; i++) {
-        FreeBlock(&nandController->blocks[i]);
+    if (nandController->blocks != NULL) {
+        for (int i = 0; i < BLOCK_NUM; i++) {
+            FreeBlock(&nandController->blocks[i]);
+        }
+        free(nandController->blocks);
+        nandController->blocks = NULL;
     }
-    free(nandController->blocks);
 }

@@ -10,7 +10,7 @@ Block GetNewBlock(int index)
     newBlock.invalidPage = 0;
     newBlock.currentPageIndex = 0;
     newBlock.type = NONE;
-    newBlock.pages = malloc(sizeof(Page) * PAGE_IN_BLOCK_NUM);
+    newBlock.pages = (Page*)malloc(sizeof(Page) * PAGE_IN_BLOCK_NUM);
     for (int i = 0; i < PAGE_IN_BLOCK_NUM; i++)
     {
         int address = index * PAGE_IN_BLOCK_NUM + i;
@@ -73,5 +73,8 @@ void ShowBlockContent(Block block)
 }
 
 void FreeBlock(Block *block) {
-    free(block->pages);
+    if (block->pages!= NULL) {
+        free(block->pages);
+        block->pages = NULL;
+    }
 }

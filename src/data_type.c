@@ -32,7 +32,10 @@ LPTable GetNewLPTable() {
 }
 
 void FreeTable(LPTable* table) {
-    free(table->entries);
+    if (table->entries != NULL) {
+        free(table->entries);
+        table->entries = NULL;
+    }
 }
 
 void insert(LPTable* table, long long lba, int ppa) {
@@ -48,8 +51,9 @@ void insert(LPTable* table, long long lba, int ppa) {
                 return;
             }
             if (current->next == NULL) {
-                Node newNode = GetNewNode(lba, ppa);
-                current->next = &newNode;
+                Node* newNode = (Node*) malloc(sizeof(Node) * 1);
+                *newNode = GetNewNode(lba, ppa);
+                current->next = newNode;
                 return;
             }
             current = current->next;
