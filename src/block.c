@@ -19,16 +19,30 @@ Block GetNewBlock(int index)
     return newBlock;
 }
 
-int ProgramBlock(Block *block, int lbas[], int lbaNums, BlockType_t type)
+int ProgramBlock(Block *block, long long lbas[], int lbaNums, BlockType_t type)
 {
     if (block->type == NONE)
         block->type = type;
-    if (block->type != type)
+    if (block->type != type) {
         printf("Program on different block type\n");
-    if (block->currentPageIndex == PAGE_IN_BLOCK_NUM)
+        return -1;
+    }
+    if (block->currentPageIndex == PAGE_IN_BLOCK_NUM) {
         printf("Insufficent space in block to program\n");
-    if (block->pages[block->currentPageIndex].status != FREE)
+        return -1;
+    }
+    if (block->pages[block->currentPageIndex].status != FREE) {
         printf("Program on not free page\n");
+        return -1;
+    }
+    if (lbaNums == 0) {
+        printf("Program zero lba\n");
+        return -1;
+    }
+    if (lbaNums > PAGE_IN_BLOCK_NUM) {
+        printf("Trying to program exceeds lbaNums\n");
+        return -1;
+    }
     ProgramPage(&block->pages[block->currentPageIndex], lbas, lbaNums);
     int programAddress = block->pages[block->currentPageIndex].address;
     block->currentPageIndex += 1;

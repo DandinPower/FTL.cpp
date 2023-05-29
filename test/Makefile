@@ -26,4 +26,4 @@ run: all
 
 .PHONY: clean
 clean:
-	rm -f $(OBJDIR)/*.o $(OBJDIR)/ut_test
+	rm -f $(OBJDIR)/*.o

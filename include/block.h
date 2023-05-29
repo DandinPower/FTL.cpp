@@ -21,7 +21,7 @@ typedef struct
 
 Block GetNewBlock(int index); // 回傳一個新的block
 
-int ProgramBlock(Block *block, int lbas[], int lbaNums, BlockType_t type); // 將lbas(1 - LBA_IN_PAGE_NUM)寫入指定的block, 回傳寫入的page address
+int ProgramBlock(Block *block, long long lbas[], int lbaNums, BlockType_t type); // 將lbas(1 - LBA_IN_PAGE_NUM)寫入指定的block, 回傳寫入的page address
 
 bool IsBlockFull(Block block); // 檢查block是否滿了
 

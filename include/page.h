@@ -15,12 +15,12 @@ typedef struct
     PageStatus_t status;            // 紀錄Page目前的狀態
     void *parentBlock;              // 指向擁有該Page的Block，特別注意這裡的pointer要傳入Block的pointer
     int lbaNums;                    // 目前有的lba數量
-    int storeLbas[LBA_IN_PAGE_NUM]; // 一個page裡面的lba address array
+    long long storeLbas[LBA_IN_PAGE_NUM]; // 一個page裡面的lba address array
 } Page;
 
 Page GetNewPage(int address, void *parentBlock); // 回傳一個新的Page
 
-void ProgramPage(Page *page, int lbas[], int lbaNums); // 將lbas 寫入進page裡
+void ProgramPage(Page *page, long long lbas[], int lbaNums); // 將lbas 寫入進page裡
 
 void ResetPage(Page *page); // 清空Page內的lba相關資訊
 

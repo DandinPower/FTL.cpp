@@ -48,7 +48,7 @@ int GetWriteBlockIndex(NandController* nandController, BlockType_t type) {
     }
 }
 
-int Program(NandController* nandController, int lbas[], int lbaNums, BlockType_t type) {
+int Program(NandController* nandController, long long lbas[], int lbaNums, BlockType_t type) {
     int programBlockIndex = GetWriteBlockIndex(nandController, type);
     int programPageAddress = ProgramBlock(&nandController->blocks[programBlockIndex], lbas, lbaNums, type);
     if (IsBlockFull(nandController->blocks[programBlockIndex])) {

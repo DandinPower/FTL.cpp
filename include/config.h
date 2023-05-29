@@ -3,8 +3,8 @@
 
 #define LBA_BYTES 4096
 #define LBA_IN_PAGE_NUM 4
-#define PAGE_IN_BLOCK_NUM 10
-#define BLOCK_NUM 5
+#define PAGE_IN_BLOCK_NUM 256
+#define BLOCK_NUM 500
 
 #define BLOCK_GC_LEVEL 0.95
 

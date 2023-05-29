@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <check.h>
-#include "data_type.h"
+#include <data_type.h>
 
 START_TEST (test_get_null_node)
 {

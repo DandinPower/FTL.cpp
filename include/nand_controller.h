@@ -14,7 +14,7 @@ NandController GetNewNandController();  // 回傳一個新的物件
 
 int GetWriteBlockIndex(NandController* nandController, BlockType_t type); // 找出特定type的free block
 
-int Program(NandController* nandController, int lbas[], int lbaNums, BlockType_t type); // 寫入新的request, 回傳寫入的page address
+int Program(NandController* nandController, long long lbas[], int lbaNums, BlockType_t type); // 寫入新的request, 回傳寫入的page address
 
 void Erase(NandController* nandController, int blockIndex); // 當GC時需要Erase用
 

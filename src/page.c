@@ -10,11 +10,11 @@ Page GetNewPage(int address, void *parentBlock)
     newPage.address = address;
     newPage.parentBlock = parentBlock;
     newPage.lbaNums = 0;
-    memset(newPage.storeLbas, -1, sizeof(int) * LBA_IN_PAGE_NUM);
+    memset(newPage.storeLbas, -1, sizeof(long long) * LBA_IN_PAGE_NUM);
     return newPage;
 }
 
-void ProgramPage(Page *page, int lbas[], int lbaNums)
+void ProgramPage(Page *page, long long lbas[], int lbaNums)
 {
     page->status = VALID;
     int totalNums = lbaNums + page->lbaNums;
@@ -48,7 +48,7 @@ void ShowPageContent(Page page)
     printf("LBA Addresses:\n");
     for (int i = 0; i < page.lbaNums; i++)
     {
-        printf("%d ", page.storeLbas[i]);
+        printf("%lld ", page.storeLbas[i]);
     }
     printf("\n\n");
 }

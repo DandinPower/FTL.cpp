@@ -5,3 +5,7 @@ AddressTranslation GetNewAddressTranslation() {
     newAddressTranslation.table = GetNewLPTable();
     return newAddressTranslation;
 }
+
+void UpdateTable(AddressTranslation* addressTranslation, long long lbas[], int lbaNums, int pageAddress) {
+    
+}
