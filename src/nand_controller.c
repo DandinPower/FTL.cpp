@@ -50,6 +50,7 @@ int GetWriteBlockIndex(NandController* nandController, BlockType_t type) {
 
 int Program(NandController* nandController, long long lbas[], int lbaNums, BlockType_t type) {
     int programBlockIndex = GetWriteBlockIndex(nandController, type);
+    if (programBlockIndex == -1) return -1;
     int programPageAddress = ProgramBlock(&nandController->blocks[programBlockIndex], lbas, lbaNums, type);
     if (IsBlockFull(nandController->blocks[programBlockIndex])) {
         if (type == HOT) nandController->currentHotBlockIndex = -1;
@@ -60,7 +61,7 @@ int Program(NandController* nandController, long long lbas[], int lbaNums, Block
 }
 
 void Erase(NandController* nandController, int blockIndex) {
-    if (!nandController->blockStatus[blockIndex]) printf("Erase on free block");
+    if (!nandController->blockStatus[blockIndex]) printf("Erase on free block\n");
     nandController->blockStatus[blockIndex] = 0;
     EraseBlock(&nandController->blocks[blockIndex]);
 }
