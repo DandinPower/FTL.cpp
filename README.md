@@ -1,6 +1,11 @@
 # FTL.cpp
 create a pure c library to simulate simple flash translation layer action.
 
+## Environment Installation
+- ensure already have following dependency
+    1. check library for unit test
+    2. gcc 
+
 ## Unit Test
 - use following command to run test
 
